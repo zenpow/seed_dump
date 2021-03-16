@@ -71,6 +71,7 @@ class SeedDump
       options[:exclude] ||= [:id, :created_at, :updated_at]
 
       method = options[:import] ? 'import' : 'create!'
+      method = 'insert_all!' if options[:insert]
       io.write("#{model_for(records)}.#{method}(")
       if options[:import]
         io.write("[#{attribute_names(records, options).map {|name| name.to_sym.inspect}.join(', ')}], ")
