@@ -127,6 +127,14 @@ describe SeedDump do
       end
     end
 
+    context 'with extra_attrs parameters' do
+      it 'should add the extra attributes from the dump' do
+        expected_output = "Sample.create!([\n  {string: \"string\", text: \"text\", integer: 42, float: 3.14, decimal: \"2.72\", datetime: \"1776-07-04 19:14:00\", time: \"2000-01-01 03:15:00\", date: \"1863-11-19\", binary: \"binary\", boolean: false, a: 1, b: 2}\n])\n"
+
+        SeedDump.dump(Sample.limit(1), extra_attrs: { a: 1, b:2 }).should eq(expected_output)
+      end
+    end
+
     context 'activerecord-import' do
       it 'should dump in the activerecord-import format when import is true' do
         SeedDump.dump(Sample, import: true, exclude: []).should eq <<-RUBY
