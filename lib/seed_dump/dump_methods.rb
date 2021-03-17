@@ -120,7 +120,9 @@ class SeedDump
                           records[0].attribute_names
                         end
 
-      attribute_names.select {|name| !options[:exclude].include?(name.to_sym)}
+      names = attribute_names.select {|name| !options[:exclude].include?(name.to_sym)}
+      extra_names = options[:extra_attrs] || []
+      names + extra_names
     end
 
     def model_for(records)
