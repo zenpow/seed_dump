@@ -51,10 +51,7 @@ class SeedDump
                 value.to_s
               when ActiveSupport::HashWithIndifferentAccess, Hash, Array
                 return <<~EOF
-                       YAML.load(<<~YAML
-                       #{value.to_yaml.to_s}
-                       YAML
-                       )
+                       YAML.load(%q(#{value.to_yaml.to_s}))
                        EOF
               else
                 value
