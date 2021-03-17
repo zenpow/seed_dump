@@ -25,7 +25,7 @@ class SeedDump
         attribute_strings << dump_attribute_new(attribute, value, options) unless options[:exclude].include?(attribute.to_sym)
       end
 
-      options[:extra_attrs] ||= []
+      options[:extra_attrs] ||= {}
       options[:extra_attrs].each do |attribute, value|
         attribute_strings << dump_attribute_new(attribute, value, options)
       end
@@ -121,7 +121,8 @@ class SeedDump
                         end
 
       names = attribute_names.select {|name| !options[:exclude].include?(name.to_sym)}
-      extra_names = options[:extra_attrs] || []
+      options[:extra_attrs] ||= {}
+      extra_names = options[:extra_attrs].keys
       names + extra_names
     end
 
