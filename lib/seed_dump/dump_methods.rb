@@ -50,9 +50,7 @@ class SeedDump
               when ->(v) { v.class.ancestors.map(&:to_s).include?('RGeo::Feature::Instance') }
                 value.to_s
               when ActiveSupport::HashWithIndifferentAccess, Hash, Array
-                return <<~EOF
-                       YAML.load(%q(#{value.to_yaml.to_s}))
-                       EOF
+                return "YAML.load(%q(#{value.to_yaml}))"
               else
                 value
               end
