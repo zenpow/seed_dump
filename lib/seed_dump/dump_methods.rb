@@ -49,7 +49,7 @@ class SeedDump
                 range_to_string(value)
               when ->(v) { v.class.ancestors.map(&:to_s).include?('RGeo::Feature::Instance') }
                 value.to_s
-              when ActiveSupport::HashWithIndifferentAccess, Hash, Array
+              when ActiveSupport::HashWithIndifferentAccess, Hash, Array, ActionController::Parameters
                 return "YAML.load(%q(#{value.to_yaml}))"
               else
                 value
